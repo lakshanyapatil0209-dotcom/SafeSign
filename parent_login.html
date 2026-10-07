@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Parent Login{% endblock %}
+
+{% block content %}
+
+<div class="auth-page">
+
+    <div class="auth-card">
+
+        <div class="auth-icon">♙</div>
+
+        <div class="eyebrow">PARENT PORTAL</div>
+
+        <h1>Welcome Back</h1>
+
+        <p>
+            Login to digitally sign a college document.
+        </p>
+
+        <form method="post" id="loginForm">
+
+            <label>Parent ID</label>
+
+            <input
+                name="username"
+                required
+                placeholder="Enter Parent ID"
+            >
+
+            <label>Password</label>
+
+            <input
+                type="password"
+                name="password"
+                required
+                placeholder="Enter Password"
+            >
+
+            <button class="primary" type="submit">
+                LOGIN →
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

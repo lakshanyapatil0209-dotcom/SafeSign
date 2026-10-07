@@ -1,0 +1,254 @@
+{% extends "base.html" %}
+
+{% block title %}College Verification Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="college-dashboard">
+
+    <div class="college-container">
+
+        <!-- HEADER -->
+
+        <div class="college-page-header">
+
+            <div>
+
+                <div class="college-eyebrow">
+                    COLLEGE AUTHORITY · SECURE CONSOLE
+                </div>
+
+                <h1>Verification Dashboard</h1>
+
+                <p>
+                    Monitor parent submissions and verify
+                    digital signatures in real time.
+                </p>
+
+            </div>
+
+            <button
+                class="college-refresh-btn"
+                onclick="loadDocuments()"
+            >
+                <span>↻</span>
+                Refresh
+            </button>
+
+        </div>
+
+
+        <!-- LIVE STATUS -->
+
+        <div class="college-live-status">
+
+            <div class="live-status-left">
+
+                <span class="live-pulse"></span>
+
+                <div>
+                    <strong>LIVE VERIFICATION SYSTEM</strong>
+
+                    <small>
+                        Shared backend monitoring · Auto-refresh every 2 seconds
+                    </small>
+                </div>
+
+            </div>
+
+            <div class="connection-status">
+                ● CONNECTED
+            </div>
+
+        </div>
+
+
+        <!-- STAT CARDS -->
+
+        <div class="college-stats" id="stats">
+
+            <!-- PENDING -->
+
+            <div class="college-stat-card pending-card">
+
+                <div class="college-stat-top">
+
+                    <div class="college-stat-icon">
+                        ◷
+                    </div>
+
+                    <span class="stat-label">
+                        AWAITING ACTION
+                    </span>
+
+                </div>
+
+                <div class="college-stat-number">
+                    <b id="pendingCount">0</b>
+                </div>
+
+                <div class="college-stat-bottom">
+                    <span>Pending Documents</span>
+                    <span class="stat-arrow">→</span>
+                </div>
+
+            </div>
+
+
+            <!-- VERIFIED -->
+
+            <div class="college-stat-card verified-card">
+
+                <div class="college-stat-top">
+
+                    <div class="college-stat-icon">
+                        ✓
+                    </div>
+
+                    <span class="stat-label">
+                        AUTHENTICATED
+                    </span>
+
+                </div>
+
+                <div class="college-stat-number">
+                    <b id="verifiedCount">0</b>
+                </div>
+
+                <div class="college-stat-bottom">
+                    <span>Verified Documents</span>
+                    <span class="stat-arrow">→</span>
+                </div>
+
+            </div>
+
+
+            <!-- FAILED -->
+
+            <div class="college-stat-card failed-card">
+
+                <div class="college-stat-top">
+
+                    <div class="college-stat-icon">
+                        !
+                    </div>
+
+                    <span class="stat-label">
+                        ATTENTION
+                    </span>
+
+                </div>
+
+                <div class="college-stat-number">
+                    <b id="failedCount">0</b>
+                </div>
+
+                <div class="college-stat-bottom">
+                    <span>Failed Verification</span>
+                    <span class="stat-arrow">→</span>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- VERIFICATION QUEUE -->
+
+        <div class="college-table-card">
+
+            <div class="college-table-header">
+
+                <div class="queue-title">
+
+                    <div class="queue-icon">
+                        ▣
+                    </div>
+
+                    <div>
+
+                        <div class="queue-eyebrow">
+                            DOCUMENT MANAGEMENT
+                        </div>
+
+                        <h2>
+                            Verification Queue
+                        </h2>
+
+                        <p>
+                            Review submitted documents and verify
+                            their digital signatures.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="queue-security">
+                    <span>🔐</span>
+                    SHA-256
+                    <i>+</i>
+                    ML-DSA-65
+                </div>
+
+            </div>
+
+
+            <!-- JS WILL INSERT DOCUMENTS HERE -->
+
+            <div
+                id="documents"
+                class="college-documents"
+            ></div>
+
+
+        </div>
+
+
+        <!-- SECURITY FOOTER -->
+
+        <div class="college-security-footer">
+
+            <div class="security-footer-icon">
+                🔐
+            </div>
+
+            <div class="security-footer-text">
+
+                <strong>
+                    Secure Verification Environment
+                </strong>
+
+                <p>
+                    Document integrity is checked using SHA-256
+                    and digital signatures are verified using ML-DSA-65.
+                </p>
+
+            </div>
+
+            <div class="security-footer-tags">
+
+                <span>SHA-256</span>
+                <span>ML-DSA-65</span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- TOAST -->
+
+<div id="toast" class="toast"></div>
+
+{% endblock %}
+
+
+{% block scripts %}
+
+<script src="{{ url_for('static', filename='js/college.js') }}"></script>
+
+{% endblock %}

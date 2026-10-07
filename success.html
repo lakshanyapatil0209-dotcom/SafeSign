@@ -1,0 +1,320 @@
+{% extends "base.html" %}
+
+{% block title %}Document Signed{% endblock %}
+
+{% block content %}
+
+<div class="success-page">
+
+    <div class="success-container">
+
+        <!-- SUCCESS HEADER -->
+
+        <div class="success-hero">
+
+            <div class="success-check">
+                ✓
+            </div>
+
+            <div>
+                <div class="eyebrow">
+                    SIGNATURE GENERATED
+                </div>
+
+                <h1>Document Signed Successfully</h1>
+
+                <p>
+                    Your document has been securely hashed and digitally signed.
+                    It is now ready for college verification.
+                </p>
+            </div>
+
+        </div>
+
+
+        <!-- MAIN RESULT CARD -->
+
+        <div class="signature-card">
+
+            <div class="signature-card-header">
+
+                <div>
+                    <span class="card-label">DOCUMENT DETAILS</span>
+
+                    <h2>Signature Information</h2>
+                </div>
+
+                <div class="secure-badge">
+                    🔐 SECURE
+                </div>
+
+            </div>
+
+
+            <div class="signature-details">
+
+                <!-- DOCUMENT ID -->
+
+                <div class="signature-detail">
+
+                    <span class="detail-icon">▣</span>
+
+                    <div>
+                        <small>DOCUMENT ID</small>
+                        <strong>{{ doc.document_id }}</strong>
+                    </div>
+
+                </div>
+
+
+                <!-- STUDENT ID -->
+
+                <div class="signature-detail">
+
+                    <span class="detail-icon">♙</span>
+
+                    <div>
+                        <small>STUDENT ID</small>
+                        <strong>{{ doc.student_id }}</strong>
+                    </div>
+
+                </div>
+
+
+                <!-- HASH -->
+
+                <div class="signature-detail">
+
+                    <span class="detail-icon gold-detail">#</span>
+
+                    <div>
+                        <small>HASH ALGORITHM</small>
+                        <strong>SHA-256</strong>
+                    </div>
+
+                </div>
+
+
+                <!-- SIGNATURE -->
+
+                <div class="signature-detail">
+
+                    <span class="detail-icon blue-detail">✒</span>
+
+                    <div>
+                        <small>DIGITAL SIGNATURE</small>
+                        <strong>ML-DSA-65</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- HASH -->
+
+            <div class="hash-box">
+
+                <div class="hash-heading">
+
+                    <span>SHA-256 DOCUMENT HASH</span>
+
+                    <span class="hash-lock">🔒</span>
+
+                </div>
+
+                <code>{{ doc.original_hash }}</code>
+
+            </div>
+
+
+            <!-- VERIFICATION STATUS -->
+
+            <div class="verification-panel">
+
+                <div class="verification-left">
+
+                    <div class="verification-icon">
+                        ◉
+                    </div>
+
+                    <div>
+
+                        <small>COLLEGE VERIFICATION STATUS</small>
+
+                        <strong
+                            id="verificationStatus"
+                            class="pending-text"
+                        >
+                            🟡 Awaiting College Verification
+                        </strong>
+
+                        <p
+                            id="verificationMessage"
+                            class="verification-message"
+                        ></p>
+
+                    </div>
+
+                </div>
+
+                <div class="live-indicator">
+                    <i></i>
+                    LIVE
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PROCESS -->
+
+        <div class="verification-flow">
+
+            <div class="flow-step completed">
+
+                <span>✓</span>
+
+                <div>
+                    <strong>Document Uploaded</strong>
+                    <small>File received securely</small>
+                </div>
+
+            </div>
+
+
+            <div class="flow-line completed-line"></div>
+
+
+            <div class="flow-step completed">
+
+                <span>✓</span>
+
+                <div>
+                    <strong>Digital Signature</strong>
+                    <small>ML-DSA-65 generated</small>
+                </div>
+
+            </div>
+
+
+            <div class="flow-line"></div>
+
+
+            <div class="flow-step waiting">
+
+                <span>3</span>
+
+                <div>
+                    <strong>College Verification</strong>
+                    <small>Awaiting authority</small>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ACTIONS -->
+
+        <div class="success-actions">
+
+            <a
+                class="back-dashboard-btn"
+                href="{{ url_for('parent_dashboard') }}"
+            >
+                ← Back to Dashboard
+            </a>
+
+            <div class="security-note">
+                <span>✓</span>
+                Your private signing key remains securely protected.
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+const documentId = "{{ doc.document_id }}";
+
+async function checkVerificationStatus() {
+
+    try {
+
+        const response = await fetch(
+            `/api/parent/document/${documentId}`,
+            {
+                cache: "no-store"
+            }
+        );
+
+        const data = await response.json();
+
+        if (!data.ok) {
+            return;
+        }
+
+        const status =
+            document.getElementById("verificationStatus");
+
+        const message =
+            document.getElementById("verificationMessage");
+
+
+        if (data.status === "VERIFIED") {
+
+            status.innerHTML = "🟢 VERIFIED";
+
+            status.className = "verified-text";
+
+            message.innerHTML =
+                "✓ Your document has been successfully verified by the college.";
+
+            message.className =
+                "verification-message verified-message";
+
+
+        } else if (data.status === "FAILED") {
+
+            status.innerHTML =
+                "🔴 VERIFICATION FAILED";
+
+            status.className =
+                "failed-text";
+
+            message.innerHTML =
+                data.message ||
+                "Document verification failed.";
+
+            message.className =
+                "verification-message failed-message";
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Verification status error:",
+            error
+        );
+
+    }
+
+}
+
+
+checkVerificationStatus();
+
+setInterval(
+    checkVerificationStatus,
+    2000
+);
+
+</script>
+
+{% endblock %}

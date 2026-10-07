@@ -1,0 +1,263 @@
+{% extends "base.html" %}
+
+{% block title %}Sign Document{% endblock %}
+
+{% block content %}
+
+<div class="upload-page">
+
+    <div class="upload-container">
+
+        <!-- PAGE HEADER -->
+
+        <div class="upload-header">
+
+            <div>
+                <div class="eyebrow">STEP 1 · DOCUMENT SUBMISSION</div>
+
+                <h1>Sign College Document</h1>
+
+                <p>
+                    Upload your college document and securely submit it
+                    for digital signature verification.
+                </p>
+            </div>
+
+            <div class="upload-security-badge">
+                <span>🔐</span>
+                <div>
+                    <strong>Secure Signing</strong>
+                    <small>SHA-256 · ML-DSA-65</small>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- FORM CARD -->
+
+        <div class="upload-card">
+
+            <div class="upload-card-heading">
+
+                <div class="upload-card-icon">
+                    ▣
+                </div>
+
+                <div>
+                    <h2>Document Details</h2>
+
+                    <p>
+                        Enter the student information and select
+                        the document you want to sign.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <form method="post"
+                  enctype="multipart/form-data"
+                  id="uploadForm">
+
+
+                <!-- STUDENT NAME -->
+
+                <div class="form-group">
+
+                    <label for="student_name">
+                        Student Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="student_name"
+                        name="student_name"
+                        value="{{ student_name or '' }}"
+                        placeholder="Enter student name"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- STUDENT ID -->
+
+                <div class="form-group">
+
+                    <label for="student_id">
+                        Student ID
+                    </label>
+
+                    <input
+                        type="text"
+                        id="student_id"
+                        name="student_id"
+                        value="{{ student_id or '' }}"
+                        placeholder="Enter student ID"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- FILE -->
+
+                <div class="form-group">
+
+                    <label for="document">
+                        College Document
+                    </label>
+
+                    <div class="file-upload-box">
+
+                        <div class="file-upload-icon">
+                            ↑
+                        </div>
+
+                        <div class="file-upload-content">
+
+                            <strong>
+                                Choose your document
+                            </strong>
+
+                            <span>
+                                PDF, JPG, JPEG or PNG
+                            </span>
+
+                        </div>
+
+                        <label class="choose-file-btn"
+                               for="document">
+                            Browse
+                        </label>
+
+                        <input
+                            type="file"
+                            id="document"
+                            name="document"
+                            accept=".pdf,.jpg,.jpeg,.png"
+                            required
+                        >
+
+                    </div>
+
+                    <div id="selectedFile"
+                         class="selected-file">
+                    </div>
+
+                </div>
+
+
+                <!-- SECURITY INFO -->
+
+                <div class="sign-info">
+
+                    <div class="sign-info-icon">
+                        ✓
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Ready for secure signing
+                        </strong>
+
+                        <p>
+                            Your document will be processed using
+                            SHA-256 hashing and ML-DSA-65 digital signing.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- BUTTON -->
+
+                <button
+                    class="sign-document-btn"
+                    type="submit"
+                >
+                    CONTINUE &amp; SIGN
+                    <span>→</span>
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- PROCESS INDICATOR -->
+
+        <div class="process-steps">
+
+            <div class="process-step active">
+                <span>1</span>
+                <div>
+                    <strong>Upload</strong>
+                    <small>Select document</small>
+                </div>
+            </div>
+
+            <div class="process-line"></div>
+
+            <div class="process-step">
+                <span>2</span>
+                <div>
+                    <strong>Sign</strong>
+                    <small>Generate signature</small>
+                </div>
+            </div>
+
+            <div class="process-line"></div>
+
+            <div class="process-step">
+                <span>3</span>
+                <div>
+                    <strong>Verify</strong>
+                    <small>College verification</small>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+const documentInput = document.getElementById("document");
+const selectedFile = document.getElementById("selectedFile");
+
+if (documentInput) {
+
+    documentInput.addEventListener("change", function () {
+
+        if (this.files.length > 0) {
+
+            const file = this.files[0];
+
+            selectedFile.innerHTML =
+                "✓ Selected: <strong>" +
+                file.name +
+                "</strong>";
+
+            selectedFile.style.display = "block";
+
+        } else {
+
+            selectedFile.innerHTML = "";
+            selectedFile.style.display = "none";
+
+        }
+
+    });
+
+}
+
+</script>
+
+{% endblock %}

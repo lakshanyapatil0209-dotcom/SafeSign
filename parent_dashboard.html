@@ -1,0 +1,383 @@
+{% extends "base.html" %}
+
+{% block title %}Parent Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="dashboard-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="dashboard-sidebar">
+
+        <div class="sidebar-brand">
+            <div class="sidebar-logo">✒</div>
+            <div>
+                <strong>Safe Sign</strong>
+                <small>Parent Portal</small>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <a href="{{ url_for('parent_dashboard') }}"
+               class="sidebar-link active">
+                <span>⌂</span>
+                Dashboard
+            </a>
+
+            <a href="{{ url_for('upload_document') }}"
+               class="sidebar-link">
+                <span>✎</span>
+                Sign Document
+            </a>
+
+            <a href="#submissions"
+               class="sidebar-link">
+                <span>▣</span>
+                My Documents
+            </a>
+
+            <a href="#security"
+               class="sidebar-link">
+                <span>♙</span>
+                Security
+            </a>
+
+            <a href="{{ url_for('logout') }}"
+               class="sidebar-link logout-link">
+                <span>↪</span>
+                Logout
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <div class="sidebar-shield">♢</div>
+
+            <p>
+                Digitally signing today<br>
+                for a safer tomorrow.
+            </p>
+
+            <div class="sidebar-line"></div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN DASHBOARD -->
+
+    <main class="dashboard-main">
+
+        <!-- HEADER -->
+
+        <div class="dashboard-top">
+
+            <div>
+                <div class="portal-label">
+                    ♙ &nbsp; PARENT PORTAL
+                </div>
+
+                <h1>Dashboard</h1>
+
+                <p class="welcome-text">
+                    Welcome,
+                    <strong>{{ session.get("username", "Parent") }}</strong>
+                </p>
+
+                <p class="student-id">
+                    Student ID:
+                    <strong>{{ student_id }}</strong>
+                </p>
+            </div>
+
+            <a href="{{ url_for('upload_document') }}"
+               class="new-document-btn">
+                + New Document
+            </a>
+
+        </div>
+
+
+        <!-- WELCOME SECURITY BANNER -->
+
+        <div class="dashboard-banner">
+
+            <div>
+                <span>SECURE DOCUMENT WORKFLOW</span>
+
+                <h2>
+                    Your documents.<br>
+                    <em>Protected & Verified.</em>
+                </h2>
+
+                <p>
+                    Digitally sign academic documents and
+                    securely submit them for college verification.
+                </p>
+            </div>
+
+            <div class="banner-document">
+
+                <div class="mini-paper">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <b>✓</b>
+                </div>
+
+                <div class="mini-shield">♢</div>
+
+            </div>
+
+        </div>
+
+
+        <!-- STAT CARDS -->
+
+        <div class="dashboard-stats">
+
+            <div class="dashboard-stat gold-stat">
+
+                <div class="stat-icon">▣</div>
+
+                <div>
+                    <span>Signed Documents</span>
+                    <strong>{{ documents|length }}</strong>
+                    <small>Total documents signed</small>
+                </div>
+
+                <div class="stat-arrow">→</div>
+
+            </div>
+
+
+            <div class="dashboard-stat blue-stat">
+
+                <div class="stat-icon">◆</div>
+
+                <div>
+                    <span>Signature Algorithm</span>
+                    <strong>ML-DSA-65</strong>
+                    <small>Post-Quantum Signature</small>
+                </div>
+
+                <div class="stat-arrow">→</div>
+
+            </div>
+
+
+            <div class="dashboard-stat green-stat">
+
+                <div class="stat-icon">#</div>
+
+                <div>
+                    <span>Hash Algorithm</span>
+                    <strong>SHA-256</strong>
+                    <small>Document Integrity</small>
+                </div>
+
+                <div class="stat-arrow">→</div>
+
+            </div>
+
+
+            <div class="dashboard-stat purple-stat">
+
+                <div class="stat-icon">✓</div>
+
+                <div>
+                    <span>Security Status</span>
+                    <strong>Active</strong>
+                    <small>Your documents are protected</small>
+                </div>
+
+                <div class="stat-arrow">→</div>
+
+            </div>
+
+        </div>
+
+
+        <!-- RECENT SUBMISSIONS -->
+
+        <section class="submissions-card" id="submissions">
+
+            <div class="submissions-header">
+
+                <div class="submission-title">
+
+                    <div class="folder-icon">▰</div>
+
+                    <div>
+                        <h2>Recent Submissions</h2>
+
+                        <p>
+                            Your latest signed documents and
+                            their verification status.
+                        </p>
+                    </div>
+
+                </div>
+
+                <a href="{{ url_for('upload_document') }}"
+                   class="outline-btn">
+                    + New Document
+                </a>
+
+            </div>
+
+
+            {% if documents %}
+
+            <div class="documents-table">
+
+                <div class="table-head">
+
+                    <span>DOCUMENT ID</span>
+                    <span>FILE</span>
+                    <span>CREATED</span>
+                    <span>STATUS</span>
+                    <span></span>
+
+                </div>
+
+
+                {% for doc in documents %}
+
+                <div class="document-row">
+
+                    <div class="document-id">
+
+                        <div class="row-icon">▣</div>
+
+                        <strong>
+                            {{ doc.document_id }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="document-file">
+
+                        <div class="row-icon blue-row-icon">▧</div>
+
+                        <div>
+                            <strong>
+                                {{ doc.filename }}
+                            </strong>
+
+                            <small>
+                                {{ doc.created_at }}
+                            </small>
+                        </div>
+
+                    </div>
+
+
+                    <div class="created-date">
+                        {{ doc.created_at }}
+                    </div>
+
+
+                    <div>
+
+                        {% if doc.status == "VERIFIED" %}
+
+                            <span class="status-badge verified-badge">
+                                <i></i>
+                                VERIFIED
+                            </span>
+
+                        {% elif doc.status == "FAILED" %}
+
+                            <span class="status-badge failed-badge">
+                                <i></i>
+                                FAILED
+                            </span>
+
+                        {% else %}
+
+                            <span class="status-badge pending-badge">
+                                <i></i>
+                                PENDING
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <div>
+
+                        <a href="{{ url_for('view_document',
+                                           document_id=doc.document_id) }}"
+                           class="view-btn">
+                            View →
+                        </a>
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+            {% else %}
+
+            <div class="empty-documents">
+
+                <div class="empty-icon">▣</div>
+
+                <h3>No documents yet</h3>
+
+                <p>
+                    Upload your first college document
+                    to begin the digital signing process.
+                </p>
+
+                <a href="{{ url_for('upload_document') }}"
+                   class="primary">
+                    + Sign New Document
+                </a>
+
+            </div>
+
+            {% endif %}
+
+        </section>
+
+
+        <!-- SECURITY INFORMATION -->
+
+        <section class="security-strip" id="security">
+
+            <div class="security-strip-icon">
+                🔐
+            </div>
+
+            <div>
+                <strong>Protected by Secure Cryptography</strong>
+
+                <p>
+                    SHA-256 ensures document integrity while
+                    ML-DSA-65 provides digital signature verification.
+                </p>
+            </div>
+
+            <div class="security-algorithms">
+                <span>SHA-256</span>
+                <span>ML-DSA-65</span>
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+{% endblock %}

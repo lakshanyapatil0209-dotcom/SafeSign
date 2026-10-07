@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}College Login{% endblock %}
+{% block content %}
+<div class="auth-card">
+  <div class="eyebrow">COLLEGE AUTHORITY PORTAL</div>
+  <h1>Verification Login</h1>
+  <p>Access the centralized document verification dashboard.</p>
+  <form method="post" id="loginForm">
+    <label>Authority ID</label>
+    <input name="username" required placeholder="college01">
+    <label>Password</label>
+    <input type="password" name="password" required placeholder="••••••••">
+    <button class="primary" type="submit">LOGIN</button>
+  </form>
+  <div class="demo-note">Demo: college01 / college123</div>
+</div>
+{% endblock %}

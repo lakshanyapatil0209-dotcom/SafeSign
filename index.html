@@ -1,0 +1,251 @@
+{% extends "base.html" %}
+
+{% block title %}Safe Sign | Digital Signature Verification{% endblock %}
+
+{% block content %}
+
+<section class="hero-section">
+
+    <!-- LEFT SIDE -->
+    <div class="hero-left">
+
+        <div class="hero-badge">
+            🛡 POST-QUANTUM DIGITAL SIGNATURE DEMO
+        </div>
+
+        <h1>
+            Secure Digital<br>
+            Signature<br>
+            <span>Verification System</span>
+        </h1>
+
+        <p class="hero-description">
+            Parent digital signing and college-side authentication
+            for academic documents using
+            <strong>SHA-256</strong> and <strong>ML-DSA-65</strong>.
+        </p>
+
+        <!-- FEATURE MINI CARDS -->
+
+        <div class="feature-row" id="features">
+
+            <div class="feature-item">
+                <div class="feature-icon blue-icon">🔐</div>
+                <h3>Secure</h3>
+                <p>Advanced cryptographic protection</p>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-icon green-icon">✓</div>
+                <h3>Verified</h3>
+                <p>College authentication with integrity check</p>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-icon purple-icon">⚡</div>
+                <h3>Trusted</h3>
+                <p>For a safer academic future</p>
+            </div>
+
+        </div>
+
+        <div class="hero-tagline">
+            Digital Signatures for a Safer Tomorrow
+        </div>
+
+    </div>
+
+
+    <!-- CENTER SECURITY VISUAL -->
+
+    <div class="security-visual">
+
+        <div class="glow-circle"></div>
+
+        <div class="document-stack">
+
+            <div class="document">
+                <div class="document-title">
+                    ACADEMIC DOCUMENT
+                </div>
+
+                <div class="document-lines">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+                <div class="signature">
+                    ✓
+                </div>
+            </div>
+
+            <div class="security-shield">
+                🛡
+            </div>
+
+        </div>
+
+        <div class="crypto-card">
+
+            <div>
+                <b>#</b>
+                <span>SHA-256</span>
+            </div>
+
+            <div>
+                <b>◆</b>
+                <span>ML-DSA-65</span>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- RIGHT PORTALS -->
+
+    <div class="portal-panel" id="portals">
+
+        <div class="portal-heading">
+            <div class="portal-heading-icon">♟</div>
+
+            <div>
+                <span>ACCESS</span>
+                <h2>Portals</h2>
+            </div>
+        </div>
+
+
+        <!-- PARENT -->
+
+        <a href="{{ url_for('parent_login') }}"
+           class="portal-card parent-card">
+
+            <div class="portal-icon">
+                👥
+            </div>
+
+            <div class="portal-content">
+                <h3>Parent Portal</h3>
+
+                <p>
+                    Upload, hash, digitally sign
+                    and submit a college document.
+                </p>
+            </div>
+
+            <div class="portal-arrow">
+                →
+            </div>
+
+        </a>
+
+
+        <!-- COLLEGE -->
+
+        <a href="{{ url_for('college_login') }}"
+           class="portal-card college-card">
+
+            <div class="portal-icon">
+                🏛
+            </div>
+
+            <div class="portal-content">
+                <h3>College Authority</h3>
+
+                <p>
+                    Monitor submissions and verify
+                    signature and document integrity.
+                </p>
+            </div>
+
+            <div class="portal-arrow">
+                →
+            </div>
+
+        </a>
+
+
+        <!-- INFO -->
+
+        <div class="portal-info">
+
+            <span>CRYPTographic protection</span>
+
+            <div>
+                <b>SHA-256</b>
+                <i></i>
+                <b>ML-DSA-65</b>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ABOUT -->
+
+<section class="about-section" id="about">
+
+    <div class="about-title">
+        <span>WHY SAFE SIGN?</span>
+        <h2>Secure academic documents.<br>
+            Simple verification.</h2>
+    </div>
+
+    <div class="about-cards">
+
+        <div class="about-card">
+            <div>01</div>
+            <h3>Digital Signing</h3>
+            <p>
+                Parents can digitally sign academic documents
+                before submitting them to the college.
+            </p>
+        </div>
+
+        <div class="about-card">
+            <div>02</div>
+            <h3>Hash Integrity</h3>
+            <p>
+                SHA-256 creates a unique document hash
+                to detect changes in the submitted file.
+            </p>
+        </div>
+
+        <div class="about-card">
+            <div>03</div>
+            <h3>College Verification</h3>
+            <p>
+                The college authority verifies the signature
+                and document integrity before acceptance.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<footer class="premium-footer">
+
+    <div>
+        <strong>◆ Safe Sign</strong>
+        <span>Secure • Verify • Trust</span>
+    </div>
+
+    <div>
+        Powered by Cryptography
+        <b>SHA-256</b>
+        <b>ML-DSA-65</b>
+    </div>
+
+</footer>
+
+{% endblock %}
